@@ -19,13 +19,16 @@ class DogsController < ApplicationController
 
   # GET /dogs/1/edit
   def edit
+    if current_user.id != @dog.user_id
+      redirect_to root_path, :alert => "That's not your dog!"
+    end
   end
 
   # POST /dogs
   # POST /dogs.json
   def create
     @dog = Dog.new(dog_params)
-
+    current_user.dogs << @dog
     respond_to do |format|
       if @dog.save
         @dog.images.attach(params[:dog][:image]) if params[:dog][:image].present?
