@@ -31,7 +31,12 @@ class DogsController < ApplicationController
     current_user.dogs << @dog
     respond_to do |format|
       if @dog.save
-        @dog.images.attach(params[:dog][:image]) if params[:dog][:image].present?
+        
+        if params[:dog][:images].present?
+          params[:dog][:images].each do |image|
+            @dog.images.attach(image)
+          end
+        end
 
         format.html { redirect_to @dog, notice: 'Dog was successfully created.' }
         format.json { render :show, status: :created, location: @dog }
@@ -47,7 +52,12 @@ class DogsController < ApplicationController
   def update
     respond_to do |format|
       if @dog.update(dog_params)
-        @dog.images.attach(params[:dog][:image]) if params[:dog][:image].present?
+
+        if params[:dog][:images].present?
+          params[:dog][:images].each do |image|
+            @dog.images.attach(image)
+          end
+        end
 
         format.html { redirect_to @dog, notice: 'Dog was successfully updated.' }
         format.json { render :show, status: :ok, location: @dog }
@@ -76,6 +86,6 @@ class DogsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def dog_params
-      params.require(:dog).permit(:name, :description, :images => [])
+      params.require(:dog).permit(:name, :description, :images)
     end
 end
