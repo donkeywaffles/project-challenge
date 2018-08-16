@@ -4,7 +4,12 @@ class DogsController < ApplicationController
   # GET /dogs
   # GET /dogs.json
   def index
-    @dogs = Dog.all.paginate(page: params[:page], per_page: 5)
+    if params['sorted']
+      @sorted = true
+      @dogs = Dog.last_hour.paginate(page: params[:page], per_page: 5)
+    else
+      @dogs = Dog.all.paginate(page: params[:page], per_page: 5)
+    end
   end
 
   # GET /dogs/1

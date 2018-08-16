@@ -5,6 +5,9 @@
   </article>
 </a>
 <h3>Likes: <%= dog.get_likes.count%></h3>
+<% if sorted %>
+  <h3>Likes Last Hour: <%= dog.likes_past_hour%></h3>
+<% end %>
 <% if dog_counter.odd? %>
   <%= image_tag("ad.jpg") %>
 <% end %>

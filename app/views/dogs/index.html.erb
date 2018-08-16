@@ -1,2 +1,7 @@
-<%= render partial: 'thumbnail', collection: @dogs, as: :dog %>
+<!-- Link To Sort The Index Page By Number Of Likes In The Last Hour -->
+<%= link_to "SORT HOUR", dogs_path(sorted: true) %>
+
+<%= render partial: 'thumbnail', collection: @dogs, as: :dog, locals: {sorted: @sorted} %>
+
+<!-- Paginate Index (using will_paginate GEM) -->
 <%= will_paginate @dogs, previous_label: 'Previous', next_label: 'Next' %>
