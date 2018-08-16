@@ -1,6 +1,7 @@
 <%= simple_form_for @dog do |f| %>
   <%= f.input :name %>
   <%= f.input :description, as: :text %>
+  <!-- Allow Multiple Images To Be Selected -->
   <%= f.input :images, as: :file, input_html: {multiple: true}%>
 
   <% if @dog.images.any? %>

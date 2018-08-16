@@ -25,7 +25,7 @@ class DogsController < ApplicationController
   # GET /dogs/1/edit
   def edit
     if current_user.id != @dog.user_id
-      redirect_to root_path, :alert => "That's not your dog!"
+      redirect_to dogs_path, :alert => "That's not your dog!"
     end
   end
 

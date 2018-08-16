@@ -1,5 +1,7 @@
 <!-- Link To Sort The Index Page By Number Of Likes In The Last Hour -->
-<%= link_to "SORT HOUR", dogs_path(sorted: true) %>
+<% if !@sorted %>
+  <%= link_to "SORT BY LIKES IN LAST HOUR", dogs_path(sorted: true) %>
+<% end %>
 
 <%= render partial: 'thumbnail', collection: @dogs, as: :dog, locals: {sorted: @sorted} %>
 

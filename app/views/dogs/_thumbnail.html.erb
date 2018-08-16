@@ -4,10 +4,15 @@
     <%= image_tag url_for(dog.images.first), class: "dog-photo", alt: "Photo of #{dog.name}" %>
   </article>
 </a>
+
 <h3>Likes: <%= dog.get_likes.count%></h3>
+
+<!-- Likes Past Hour -->
 <% if sorted %>
   <h3>Likes Last Hour: <%= dog.likes_past_hour%></h3>
 <% end %>
+
+<!-- Ad Space Every Two Dogs -->
 <% if dog_counter.odd? %>
   <%= image_tag("ad.jpg") %>
 <% end %>
