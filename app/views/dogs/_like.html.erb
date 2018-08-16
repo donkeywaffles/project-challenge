@@ -1,0 +1,9 @@
+<% if current_user != dog.user %>
+
+  <% if dog.get_likes.map{|like| like.user_id}.include?(current_user.id)%>
+    <%= link_to "Unlike", unlike_path, method: :delete %>
+  <% else %>
+    <%= link_to "Like", like_path, method: :get %>
+  <% end %>
+
+<% end %>

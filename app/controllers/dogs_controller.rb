@@ -1,5 +1,5 @@
 class DogsController < ApplicationController
-  before_action :set_dog, only: [:show, :edit, :update, :destroy]
+  before_action :set_dog, only: [:show, :edit, :update, :destroy, :like, :unlike]
 
   # GET /dogs
   # GET /dogs.json
@@ -31,7 +31,7 @@ class DogsController < ApplicationController
     current_user.dogs << @dog
     respond_to do |format|
       if @dog.save
-        
+
         if params[:dog][:images].present?
           params[:dog][:images].each do |image|
             @dog.images.attach(image)
@@ -76,6 +76,20 @@ class DogsController < ApplicationController
       format.html { redirect_to dogs_url, notice: 'Dog was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  ## GET /dogs/:id/like
+  ## Adds Like to Dog
+  def like
+    Like.find_or_create_by(dog_id: @dog.id, user_id: current_user.id)
+    redirect_to @dog
+  end
+
+  ## DELETE /dogs/:id/unlike
+  ## Deletes Like from Dog
+  def unlike
+    Like.find_by(dog_id: @dog.id, user_id: current_user.id).delete
+    redirect_to @dog
   end
 
   private

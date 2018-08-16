@@ -5,8 +5,14 @@
     <%= image_tag url_for(image), alt: "Photo of #{@dog.name}" %>
   <% end %>
 
+  <!-- Display Likes  -->
+  <h3>Likes: <%= @dog.get_likes.count%></h3>
+  <!-- Like/Unlike  -->
+  <%= render partial: "like", locals: { dog: @dog} %>
+
   <p><%= @dog.description %></p>
 
+  <!-- Edit If You Are Owner Of Dog -->
   <% if @dog.user_id == current_user.id %>
     <%= link_to "Edit #{@dog.name}'s Profile", edit_dog_path %>
     <br>
